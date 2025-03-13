@@ -1,4 +1,5 @@
-import "./header.css"
+import "./header.css";
+import {Link} from "react-router-dom";
 
 const Header = () => {
   return (
@@ -7,14 +8,14 @@ const Header = () => {
         <div className="container">
           <div className="header-block">
             <div className="logo-block">
-              <a href="index.html" className="logo-block__link">
+            <Link to="/" className="logo-block__link">
                 <img
                   src="public/svg/logo.svg"
                   alt="logo"
                   className="logo-block__img"
                 />
                 <span className="logo-block__text">Tools.</span>
-              </a>
+            </Link>
             </div>
             <nav className="main-nav">
               <ul className="main-nav__list">
