@@ -34,6 +34,7 @@
 .title-block__social {
   display: flex;
   margin-top: 125px;
+
 }
 
 .title-block__social li:nth-child(1) {
@@ -46,6 +47,14 @@
 
 .title-block__social li {
   width: 27px;
+}
+
+.title-block__social li a img {
+  transition: all 0.2s ease-in-out;
+}
+
+.title-block__social li a img:hover {
+  opacity: 0.6;
 }
 
 .welcome__img {

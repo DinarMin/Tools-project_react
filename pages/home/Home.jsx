@@ -59,7 +59,7 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="tools__cards__description">{tool.description}</p>
-                <Link to="/Calculator" className="btn_card">
+                <Link to={tool.path} className="btn_card">
                   Open
                 </Link>
               </li>
