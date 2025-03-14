@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  BrowserRouter,
 } from "react-router-dom";
 
 import "./reset.css";
@@ -21,7 +20,7 @@ import ScrollToTop from "../utils/scrollToTop";
 export default function App() {
   return (
     <StrictMode>
-      <BrowserRouter>
+      <Router>
         <ScrollToTop />
         <Header />
         <Routes>
@@ -31,7 +30,7 @@ export default function App() {
           <Route path="/WeatherMe" element={<WeatherMe />} />
         </Routes>
         <Footer />
-      </BrowserRouter>
+      </Router>
     </StrictMode>
   );
 }

@@ -75,7 +75,8 @@
 
 .tools__cards {
   display: flex;
-  column-gap: 25px;
+  column-gap: 20px;
+  flex-wrap: wrap;
 }
 
 .tools__cards__item {

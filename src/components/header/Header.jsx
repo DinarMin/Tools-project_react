@@ -1,5 +1,5 @@
 import "./header.css";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -8,21 +8,21 @@ const Header = () => {
         <div className="container">
           <div className="header-block">
             <div className="logo-block">
-            <Link to="/" className="logo-block__link">
+              <Link to="/" className="logo-block__link">
                 <img
                   src="public/svg/logo.svg"
                   alt="logo"
                   className="logo-block__img"
                 />
                 <span className="logo-block__text">Tools.</span>
-            </Link>
+              </Link>
             </div>
             <nav className="main-nav">
               <ul className="main-nav__list">
                 <li className="main-nav__item">
-                  <a href="index.html" className="main-nav__link">
+                  <Link to="/" className="main-nav__link">
                     Home
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>

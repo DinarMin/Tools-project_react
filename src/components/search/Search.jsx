@@ -19,7 +19,15 @@ export default function Search() {
           type="search"
           className="search"
         />
-        <button className="btn btn_search" type="submit">
+        <button
+          className="btn btn_search"
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            !isFocused ? setIsFocused(true) : null;
+          }}
+          onBlur={() => setIsFocused(false)}
+        >
           Search
         </button>
       </form>
