@@ -34,8 +34,8 @@ export default function TaskNest() {
     setInputValue(event.target.value);
   };
 
-  const deleteTask = () => {
-    setTasks(tasks.filter((task) => task.id !== task.id));
+  const deleteTask = (taskId) => {
+    setTasks(tasks.filter((task) => task.id !== taskId));
   };
 
   const changeState = (taskId) => {
@@ -228,9 +228,11 @@ export default function TaskNest() {
             </form>
             <ul className="tasks-block">
               {tasks.map((task) => (
-                <li 
-                className={`task-item-block + ${task.state ? "task-item-block__text_checked" : ''}`}
-                key={task.id}
+                <li
+                  className={`task-item-block + ${
+                    task.state ? "task-item-block__text_checked" : ""
+                  }`}
+                  key={task.id}
                 >
                   <div className="task-item-block__content">
                     <label className="task-item-block__checkbox">
@@ -246,7 +248,7 @@ export default function TaskNest() {
                     <div className="btn-block">
                       <button
                         className="btn-delete-task"
-                        onClick={deleteTask}
+                        onClick={() => deleteTask(task.id)}
                       ></button>
                       <img
                         src="public/svg/tasknest/task.svg"
