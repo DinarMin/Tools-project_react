@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import {Link} from 'react-router-dom';
+
 import "./taskNest.css";
 
 export default function TaskNest() {
@@ -169,8 +171,8 @@ export default function TaskNest() {
                 </ul>
                 <div className="tools-block">
                   <p className="tools">Tools:</p>
-                  <a
-                    href="calculator.html"
+                  <Link
+                    to="/Calculator"
                     className="tools__link btn-aside"
                     target="_blank"
                   >
@@ -207,7 +209,7 @@ export default function TaskNest() {
                       </g>
                     </svg>
                     Calculator
-                  </a>
+                  </Link>
                 </div>
               </nav>
             </div>

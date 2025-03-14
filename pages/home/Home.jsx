@@ -14,10 +14,6 @@ export default function Home() {
             <div className="title-block__text">
               <div className="demo">[ Development is underway ]</div>
               <h1>Useful tools for every day.</h1>
-              <p>
-                Tool is a web collection of information about tools that make
-                life easier.
-              </p>
             </div>
             <Search />
             <ul className="title-block__social">
