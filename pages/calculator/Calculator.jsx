@@ -5,6 +5,7 @@ import "./calculator.css";
 export default function Calculator() {
   const [tempHistory, setTempHistory] = useState([]);
   const [answer, setAnswer] = useState(0);
+  const [checkComma, setCheckComma] = useState(false);
 
   /* Отслеживание определенных нажатых кнопок и их дальнейшие действие. */
 
@@ -23,8 +24,12 @@ export default function Calculator() {
       }
     } else if (type === "%") {
       console.log(type);
-    } else if (type === ".") {
-      setTempHistory((prevHistory) => [...prevHistory, type]);
+    } else if (type === "." && !checkComma) {
+      if (tempHistory.length === 0) {
+        setTempHistory(["0."]);
+      } else {
+        setTempHistory((prevHistory) => [...prevHistory, type]);
+      }
     } else if (type === "bracket") {
       console.log(type);
     } else if (type === "equals") {
@@ -40,6 +45,7 @@ export default function Calculator() {
       const result = calculate(sortArr);
       setAnswer(result);
     }
+    setCheckComma(checkHasDot(tempHistory));
   }, [tempHistory, answer]);
 
   /* Вычисление */
@@ -106,6 +112,23 @@ export default function Calculator() {
       return <span key={index}>{item}</span>;
     });
   };
+
+  /* Определение наличие запятой в последнем числе массива, возрат булевое значение */
+
+  function checkHasDot(arr) {
+    if (arr.length === 0) return false;
+
+    let lastNumber = "";
+
+    for (let i = arr.length - 1; i >= 0; i--) {
+      if (/\d/.test(arr[i]) || arr[i] === ".") {
+        lastNumber = lastNumber + arr[i];
+      } else {
+        break;
+      }
+    }
+    return lastNumber.includes(".");
+  }
 
   /* Вывод ошибки на дисплее */
   /* Определение наличие запятой в последнем числе массива, возрат булевое значение */
