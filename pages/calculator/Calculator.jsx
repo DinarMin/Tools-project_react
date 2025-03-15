@@ -1,40 +1,113 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "./calculator.css";
 
 export default function Calculator() {
+
   const [tempHistory, setTempHistory] = useState([]);
+  const [tempHistoryCalc, setTempHistoryCalc] = useState([]);
   const [answer, setAnswer] = useState(0);
-  const [tempNumber, setTempNumber] = useState("");
 
   /* Отслеживание определенных нажатых кнопок и их дальнейшие действие. */
 
   const buttonPressed = (type) => {
     if (type >= 0) {
       setTempHistory((prevHistory) => [...prevHistory, type]);
+      setTempHistoryCalc((prevHistory) => [...prevHistory, type]);
     } else if (["+", "-", "/", "*"].includes(type)) {
-      setTempHistory((prevHistory) => [...prevHistory, type]);
+      setTempHistoryCalc((prevHistory) => [...prevHistory, type]);
+      if (type === "*") {
+        type = "×";
+        setTempHistory((prevHistory) => [...prevHistory, type]);
+      } else if (type === "/") {
+        type = "÷";
+        setTempHistory((prevHistory) => [...prevHistory, type]);
+      } else {
+        setTempHistory((prevHistory) => [...prevHistory, type]);
+      }
     } else if (type === "clear") {
       setTempHistory([]);
+      setTempHistoryCalc([]);
+      setAnswer("0");
     } else if (type === "delete") {
-      console.log(type);
+      setTempHistory(tempHistory.slice(0, -1));
+      setTempHistoryCalc(tempHistory.slice(0, -1));
     } else if (type === "%") {
       console.log(type);
     } else if (type === ".") {
       setTempHistory((prevHistory) => [...prevHistory, type]);
     } else if (type === "bracket") {
       console.log(type);
+    } else if (type === "equals") {
+      setTempHistory([]);
+      setTempHistoryCalc([]);
     }
+  };
+
+  /* Вычисление  и рендер в реальном времени. */
+
+  useEffect(() => {
+    if (tempHistoryCalc.length > 0) {
+      const sortArr = updateExpression(tempHistoryCalc);
+      const result = calculate(sortArr);
+      setAnswer(result);
+    }
+  }, [tempHistory, tempHistoryCalc, answer]);
+
+  /* Вычисление */
+
+  const calculate = (arr) => {
+    let total = 0;
+    arr.forEach((item, index) => {
+      item = parseFloat(item);
+      if (index === 0) {
+        total = item;
+      } else if (index - 2 >= 0) {
+        let prevItem = arr[index - 1];
+        if (prevItem === "+") {
+          total = total + item;
+        } else if (prevItem === "-") {
+          total = total - item;
+        } else if (prevItem === "*") {
+          total = total * item;
+        } else if (prevItem === "/") {
+          total = total / item;
+        }
+      }
+    });
+    return total;
+  };
+
+  /* Сортирует массив для дальнейших вычислений */
+
+  const updateExpression = (arr) => {
+    let result = [];
+    let bufferNum = "";
+
+    arr.forEach((item, index) => {
+      if (!isNaN(item) || item === ".") {
+        bufferNum = bufferNum + item;
+      } else {
+        if (bufferNum) {
+          result.push(bufferNum);
+          bufferNum = "";
+        }
+        result.push(item);
+      }
+    });
+
+    if (bufferNum) {
+      result.push(bufferNum);
+    }
+    return result;
   };
 
   /* Вывод ошибки на дисплее */
   /* Определение наличие запятой в последнем числе массива, возрат булевое значение */
+  /* ++ Отрисовка истории расчета на дисплее*/
   /* Опредление наличие скобки и какой скобки , возврат булевое значение. */
   /* Определение нажатых кнопок клавиатурой */
-  /* Отрисовка истории расчета на дисплее*/
-  /* Отрисовка ответа */
-  /* Вычисление */
-  /* Сортирует массив для дальнейших вычислений */
+  /* ++ Отрисовка ответа */
 
   return (
     <main className="main">
