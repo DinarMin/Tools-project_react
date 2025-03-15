@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import "./calculator.css";
 
 export default function Calculator() {
-
   const [tempHistory, setTempHistory] = useState([]);
   const [tempHistoryCalc, setTempHistoryCalc] = useState([]);
   const [answer, setAnswer] = useState(0);
@@ -84,7 +83,7 @@ export default function Calculator() {
     let result = [];
     let bufferNum = "";
 
-    arr.forEach((item, index) => {
+    arr.forEach((item) => {
       if (!isNaN(item) || item === ".") {
         bufferNum = bufferNum + item;
       } else {
