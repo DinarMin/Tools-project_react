@@ -4,7 +4,6 @@ import "./calculator.css";
 
 export default function Calculator() {
   const [tempHistory, setTempHistory] = useState([]);
-  const [tempHistoryCalc, setTempHistoryCalc] = useState([]);
   const [answer, setAnswer] = useState(0);
 
   /* Отслеживание определенных нажатых кнопок и их дальнейшие действие. */
@@ -12,25 +11,16 @@ export default function Calculator() {
   const buttonPressed = (type) => {
     if (type >= 0) {
       setTempHistory((prevHistory) => [...prevHistory, type]);
-      setTempHistoryCalc((prevHistory) => [...prevHistory, type]);
     } else if (["+", "-", "/", "*"].includes(type)) {
-      setTempHistoryCalc((prevHistory) => [...prevHistory, type]);
-      if (type === "*") {
-        type = "×";
-        setTempHistory((prevHistory) => [...prevHistory, type]);
-      } else if (type === "/") {
-        type = "÷";
-        setTempHistory((prevHistory) => [...prevHistory, type]);
-      } else {
-        setTempHistory((prevHistory) => [...prevHistory, type]);
-      }
+      setTempHistory((prevHistory) => [...prevHistory, type]);
     } else if (type === "clear") {
       setTempHistory([]);
-      setTempHistoryCalc([]);
       setAnswer("0");
     } else if (type === "delete") {
       setTempHistory(tempHistory.slice(0, -1));
-      setTempHistoryCalc(tempHistory.slice(0, -1));
+      if (tempHistory.length === 0) {
+        setAnswer("0");
+      }
     } else if (type === "%") {
       console.log(type);
     } else if (type === ".") {
@@ -39,19 +29,18 @@ export default function Calculator() {
       console.log(type);
     } else if (type === "equals") {
       setTempHistory([]);
-      setTempHistoryCalc([]);
     }
   };
 
   /* Вычисление  и рендер в реальном времени. */
 
   useEffect(() => {
-    if (tempHistoryCalc.length > 0) {
-      const sortArr = updateExpression(tempHistoryCalc);
+    if (tempHistory.length > 0) {
+      const sortArr = updateExpression(tempHistory);
       const result = calculate(sortArr);
       setAnswer(result);
     }
-  }, [tempHistory, tempHistoryCalc, answer]);
+  }, [tempHistory, answer]);
 
   /* Вычисление */
 
@@ -101,6 +90,21 @@ export default function Calculator() {
     return result;
   };
 
+  const renderHistory = () => {
+    return tempHistory.map((item, index) => {
+      if (item === "+" || item === "-") {
+        return <strong key={index}> {item} </strong>;
+      } else if (item === "*") {
+        item = "×";
+        return <strong key={index}> {item} </strong>;
+      } else if (item === "/") {
+        item = "÷";
+        return <strong key={index}> {item} </strong>;
+      }
+      return <span key={index}>{item}</span>;
+    });
+  };
+
   /* Вывод ошибки на дисплее */
   /* Определение наличие запятой в последнем числе массива, возрат булевое значение */
   /* ++ Отрисовка истории расчета на дисплее*/
@@ -123,7 +127,9 @@ export default function Calculator() {
         <div className="calculator">
           <div className="calculator__display">
             <div className="error-msg">Error, sign not placed!</div>
-            <div className="calculator__display__history">{tempHistory}</div>
+            <div className="calculator__display__history">
+              {renderHistory()}
+            </div>
             <div className="calculator__display__answer">{answer}</div>
           </div>
           <div className="line" />
