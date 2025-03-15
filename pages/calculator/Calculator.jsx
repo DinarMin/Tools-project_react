@@ -90,6 +90,8 @@ export default function Calculator() {
     return result;
   };
 
+  /* Рендер истории на дисплее */
+
   const renderHistory = () => {
     return tempHistory.map((item, index) => {
       if (item === "+" || item === "-") {
