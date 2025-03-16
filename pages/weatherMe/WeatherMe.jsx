@@ -1,4 +1,97 @@
+import {useState, useEffect} from 'react';
 import "./weatherMe.css";
+
+/* 
+Карточка с городом
+
+<div className="slider-card">
+  <div className="slider-card__location-block">
+    <p className="slider-card__location-text">Kazan</p>
+    <img
+      className="slider-card__location-img"
+      src="public/svg/weather/location_.svg"
+      alt="location"
+    />
+    <button className="slider-card__delete-btn" id="1742042420597.0098" />
+  </div>
+  <div className="slider-card__temp-block">
+    <img
+      className="slider-card__temp-img"
+      src="public/svg/weather/temperature_.svg"
+      alt="temperature"
+    />
+    <p className="slider-card__temp-meaning">6°C</p>
+  </div>
+  <div className="slider-card__data-block">
+    <p className="slider-card__data-text">Mar 15, Sat</p>
+  </div>
+</div>
+
+-------
+Чистая карточка 
+
+<div className="slider-card">
+  <div className="slider-card__location-block">
+    <p className="slider-card__location-text" />
+    <img
+      className="slider-card__location-img"
+      src="public/svg/weather/location_.svg"
+      alt="location"
+    />
+    <button className="slider-card__delete-btn none" />
+  </div>
+  <div className="slider-card__temp-block">
+    <img
+      className="slider-card__temp-img"
+      src="public/svg/weather/temperature_.svg"
+      alt="temperature"
+    />
+    <p className="slider-card__temp-meaning">&lt;Enter city name&gt;</p>
+  </div>
+  <div className="slider-card__data-block">
+    <p className="slider-card__data-text">Mar 15, Sat</p>
+  </div>
+</div>
+
+
+ */
+
+/* Вывод времени на странице*/
+
+const getTime = () => {
+  let now = new Date();
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+
+  if (minutes <= 9) {
+    return `${hours}:0${minutes}`;
+  } else {
+    return `${hours}:${minutes}`;
+  }
+}
+
+const nowTime = getTime();
+
+
+/* Вывод даты на карточку с погодой. */
+/* Отрисовка карточки с погодой на странице */
+/* Отображение информации после ввода */
+/* Вовзращает название месяца место числа */
+/* Возвращает назание дня недели место числа */
+/* Отработка элемента поиска при нажатии на ENTER */
+/* Отбработка кликов */
+/* Прооверка на повтор */
+/* Запрос информации о погоде */
+/* Асинхронный запрос далее рендер */
+/* Добавление в массив */
+/* Загрузка массив со списком в localStorage */
+/* Загрузка  массив со списком из localStorage*/
+/* Загрузка масссив со списком из localStorage во время загрузки DOM */
+/* Удаление карточки из localStorage */
+/* Удаление карточки с погодой */
+/* Удаление элемента если массив с городом пуст */
+/* Добавить список избранных городов, по мимо прокрутки */
+
 
 export default function WeatherMe() {
   return (
@@ -12,7 +105,7 @@ export default function WeatherMe() {
               className="weather-logo-block__img"
             />
             <h1 className="weather-logo-block__title">WeatherMe</h1>
-            <p className="weather-logo-block__time" />
+            <p className="weather-logo-block__time">{nowTime}</p>
           </div>
           <nav className="weather-nav">
             <ul className="weather-nav__list">
@@ -37,7 +130,7 @@ export default function WeatherMe() {
               type="text"
               placeholder="Search location..."
             />
-            <button className="btn-search-weather">Search</button>
+            <button className="btn-search-weather" onClick={(e) => e.preventDefault()}>Search</button>
           </form>
         </div>
       </section>
@@ -67,7 +160,32 @@ export default function WeatherMe() {
               />
             </svg>
           </button>
-          <div className="slider-container"></div>
+          <div className="slider-container">
+            <div className="slider-card">
+              <div className="slider-card__location-block">
+                <p className="slider-card__location-text">&lt;location&gt;</p>
+                <img
+                  className="slider-card__location-img"
+                  src="public/svg/weather/location_.svg"
+                  alt="location"
+                />
+                <button className="slider-card__delete-btn none" />
+              </div>
+              <div className="slider-card__temp-block">
+                <img
+                  className="slider-card__temp-img"
+                  src="public/svg/weather/temperature_.svg"
+                  alt="temperature"
+                />
+                <p className="slider-card__temp-meaning">
+                  &lt;Enter city name&gt;
+                </p>
+              </div>
+              <div className="slider-card__data-block">
+                <p className="slider-card__data-text">&lt;Date&gt;</p>
+              </div>
+            </div>
+          </div>
           <button className="right-arrow">
             <svg
               className="right-arrow-svg"
