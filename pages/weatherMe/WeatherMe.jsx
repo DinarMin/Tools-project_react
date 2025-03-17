@@ -58,37 +58,15 @@ const API_KEY = "a53c098ae82543b4a48124519252402";
 
  */
 
-/* Вывод даты на карточку с погодой. */
-/* Отрисовка карточки с погодой на странице */
-/* Отображение информации после ввода */
-/* Вовзращает название месяца место числа */
-/* Возвращает назание дня недели место числа */
-/* Отработка элемента поиска при нажатии на ENTER */
-/* Отбработка кликов */
-/* Прооверка на повтор */
-/* Запрос информации о погоде */
-/* Асинхронный запрос далее рендер */
-/* Загрузка массив со списком в localStorage */
-/* Загрузка  массив со списком из localStorage*/
-/* Загрузка масссив со списком из localStorage во время загрузки DOM */
-/* Удаление карточки из localStorage */
-/* Удаление карточки с погодой */
-/* Удаление элемента если массив с городом пуст */
-/* Добавить список избранных городов, по мимо прокрутки */
-
 export default function WeatherMe() {
   const [cityList, setCityList] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [currentCityIndex, setCurrentCityIndex] = useState(0);
-  const [nowDate, setNowDate] = useState(new Date())
+  const [nowDate, setNowDate] = useState(new Date());
 
   useEffect(() => {
-  setNowDate(new Date());
-  }, [])
-
-  useEffect(() => {
-    console.log(cityList);
-  }, [cityList]);
+    setNowDate(new Date());
+  }, []);
 
   /* Вывод времени на странице*/
 
@@ -143,11 +121,14 @@ export default function WeatherMe() {
     });
   }
 
+  /* Листает карточку влево */
+
   function leftArrow() {
     setCurrentCityIndex(
       (prevIndex) => (prevIndex - 1 + cityList.length) % cityList.length
     );
   }
+  /* Листает карточку вправо */
 
   function rightArrow() {
     setCurrentCityIndex((prevIndex) => (prevIndex + 1) % cityList.length);
