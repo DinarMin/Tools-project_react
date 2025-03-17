@@ -7,6 +7,31 @@ export default function Calculator() {
   const [answer, setAnswer] = useState(0);
   const [checkComma, setCheckComma] = useState(false);
 
+  /* Запускает вычисление и рендер в реальном времени. Запускает проверку запятой. */
+
+  useEffect(() => {
+    if (tempHistory.length > 0) {
+      const sortArr = updateExpression(tempHistory);
+      const result = calculate(sortArr);
+      setAnswer(result);
+    }
+    setCheckComma(checkHasDot(tempHistory));
+  }, [tempHistory, answer]);
+
+  /* Определение нажатых кнопок клавиатурой */
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      buttonPressed(event.key);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   /* Отслеживание определенных нажатых кнопок и их дальнейшие действие. */
 
   const buttonPressed = (type) => {
@@ -17,11 +42,14 @@ export default function Calculator() {
     } else if (type === "clear") {
       setTempHistory([]);
       setAnswer("0");
-    } else if (type === "delete") {
-      setTempHistory(tempHistory.slice(0, -1));
-      if (tempHistory.length === 0) {
-        setAnswer("0");
-      }
+    } else if (type === "delete" || type === "Backspace") {
+      setTempHistory((prevHistory) => {
+        const updatedHistory = prevHistory.slice(0, -1);
+        if (updatedHistory.length === 0) {
+          setAnswer("0");
+        }
+        return updatedHistory;
+      });
     } else if (type === "%") {
       console.log(type);
     } else if (type === "." && !checkComma) {
@@ -32,21 +60,10 @@ export default function Calculator() {
       }
     } else if (type === "bracket") {
       console.log(type);
-    } else if (type === "equals") {
+    } else if (type === "equals" || type === "Enter") {
       setTempHistory([]);
     }
   };
-
-  /* Вычисление  и рендер в реальном времени. */
-
-  useEffect(() => {
-    if (tempHistory.length > 0) {
-      const sortArr = updateExpression(tempHistory);
-      const result = calculate(sortArr);
-      setAnswer(result);
-    }
-    setCheckComma(checkHasDot(tempHistory));
-  }, [tempHistory, answer]);
 
   /* Вычисление */
 
@@ -132,10 +149,7 @@ export default function Calculator() {
 
   /* Вывод ошибки на дисплее */
   /* Определение наличие запятой в последнем числе массива, возрат булевое значение */
-  /* ++ Отрисовка истории расчета на дисплее*/
   /* Опредление наличие скобки и какой скобки , возврат булевое значение. */
-  /* Определение нажатых кнопок клавиатурой */
-  /* ++ Отрисовка ответа */
 
   return (
     <main className="main">
