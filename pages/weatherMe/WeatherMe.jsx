@@ -192,6 +192,14 @@ export default function WeatherMe() {
     }
   }
 
+  /* Прооверка на повтор */
+
+  function checkRepeatMeaning(array, value) {
+    return array.some((item) => {
+      return item.city.toLowerCase() == value.toLowerCase();
+    });
+  }
+
   return (
     <main className="main">
       <section className="header-weather">
@@ -234,7 +242,14 @@ export default function WeatherMe() {
               className="btn-search-weather"
               onClick={(e) => {
                 e.preventDefault();
-                getWeatherCity(inputValue, API_KEY);
+                {
+                  checkRepeatMeaning(cityList, inputValue)
+                    ? (alert("Такой город уже есть в списке!"),
+                      setInputValue(""))
+                    : inputValue.length > 0
+                    ? getWeatherCity(inputValue, API_KEY)
+                    : alert("Введите город!");
+                }
               }}
             >
               Search
