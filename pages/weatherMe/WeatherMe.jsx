@@ -4,11 +4,11 @@ import "./weatherMe.css";
 const API_KEY = "a53c098ae82543b4a48124519252402";
 
 export default function WeatherMe() {
-  const [stateList, setStateList] = useState(false);
   const [cityList, setCityList] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [currentCityIndex, setCurrentCityIndex] = useState(0);
   const [nowDate, setNowDate] = useState(new Date());
+  const [stateBtn, setStateBtn] = useState(false);
 
   useEffect(() => {
     setNowDate(new Date());
@@ -23,10 +23,8 @@ export default function WeatherMe() {
   useEffect(() => {
     if (cityList.length > 0) {
       localStorage.setItem("weather", JSON.stringify(cityList));
-      setStateList(true);
-    } else {
-      setStateList(false);
     }
+    cityList.length > 1 ? setStateBtn(true) : setStateBtn(false);
   }, [cityList]);
 
   /* Вывод времени на странице*/
@@ -170,7 +168,7 @@ export default function WeatherMe() {
 
       setCurrentCityIndex((prevIndex) => {
         if (updatedList.length === 0) {
-          return setStateList(false);
+          return;
         }
         return prevIndex >= updatedList.length
           ? updatedList.length - 1
@@ -246,7 +244,7 @@ export default function WeatherMe() {
       </section>
       <section className="weather-main">
         <div className="container">
-          <button className="left-arrow">
+          <button className={`left-arrow + ${!stateBtn ? "hidden" : ""}`}>
             <svg
               onClick={() => leftArrow()}
               className="left-arrow-svg"
@@ -272,7 +270,7 @@ export default function WeatherMe() {
             </svg>
           </button>
           <div className="slider-container">
-            {stateList ? (
+            {cityList.length > 0 ? (
               <div className="slider-card" key={cityList[currentCityIndex].id}>
                 <div className="slider-card__location-block">
                   <p className="slider-card__location-text">
@@ -288,7 +286,7 @@ export default function WeatherMe() {
                       deleteCardWeather(cityList[currentCityIndex].id)
                     }
                     className={`slider-card__delete-btn ${
-                      !stateList ? "none" : ""
+                      !cityList.length > 0 ? "none" : ""
                     }`}
                   />
                 </div>
@@ -335,7 +333,7 @@ export default function WeatherMe() {
               </div>
             )}
           </div>
-          <button className="right-arrow">
+          <button className={`right-arrow + ${!stateBtn ? "hidden" : ""}`}>
             <svg
               onClick={() => rightArrow()}
               className="right-arrow-svg"

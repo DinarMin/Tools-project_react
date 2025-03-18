@@ -239,23 +239,7 @@
   display: none;
 }
 
-/* Анимация */
-
-.slide-out {
-  transform: translateX(-200%);
-}
-
-.slide-in {
-  transform: translateX(200%);
-}
-
-.slide-back {
-  transform: translateX(0);
-}
-
 .hidden {
   opacity: 0;
 }
-
-/* Footer ------------- */
 
