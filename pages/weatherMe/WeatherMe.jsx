@@ -3,62 +3,8 @@ import "./weatherMe.css";
 
 const API_KEY = "a53c098ae82543b4a48124519252402";
 
-/* 
-Карточка с городом
-
-<div className="slider-card">
-  <div className="slider-card__location-block">
-    <p className="slider-card__location-text">Kazan</p>
-    <img
-      className="slider-card__location-img"
-      src="public/svg/weather/location_.svg"
-      alt="location"
-    />
-    <button className="slider-card__delete-btn" id="1742042420597.0098" />
-  </div>
-  <div className="slider-card__temp-block">
-    <img
-      className="slider-card__temp-img"
-      src="public/svg/weather/temperature_.svg"
-      alt="temperature"
-    />
-    <p className="slider-card__temp-meaning">6°C</p>
-  </div>
-  <div className="slider-card__data-block">
-    <p className="slider-card__data-text">Mar 15, Sat</p>
-  </div>
-</div>
-
--------
-Чистая карточка 
-
-<div className="slider-card">
-  <div className="slider-card__location-block">
-    <p className="slider-card__location-text" />
-    <img
-      className="slider-card__location-img"
-      src="public/svg/weather/location_.svg"
-      alt="location"
-    />
-    <button className="slider-card__delete-btn none" />
-  </div>
-  <div className="slider-card__temp-block">
-    <img
-      className="slider-card__temp-img"
-      src="public/svg/weather/temperature_.svg"
-      alt="temperature"
-    />
-    <p className="slider-card__temp-meaning">&lt;Enter city name&gt;</p>
-  </div>
-  <div className="slider-card__data-block">
-    <p className="slider-card__data-text">Mar 15, Sat</p>
-  </div>
-</div>
-
-
- */
-
 export default function WeatherMe() {
+  const [stateList, setStateList] = useState(false);
   const [cityList, setCityList] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [currentCityIndex, setCurrentCityIndex] = useState(0);
@@ -66,7 +12,22 @@ export default function WeatherMe() {
 
   useEffect(() => {
     setNowDate(new Date());
+
+    const storedData = localStorage.getItem("weather");
+
+    if (storedData) {
+      setCityList(JSON.parse(storedData));
+    }
   }, []);
+
+  useEffect(() => {
+    if (cityList.length > 0) {
+      localStorage.setItem("weather", JSON.stringify(cityList));
+      setStateList(true);
+    } else {
+      setStateList(false);
+    }
+  }, [cityList]);
 
   /* Вывод времени на странице*/
 
@@ -201,6 +162,38 @@ export default function WeatherMe() {
     return dateTime;
   }
 
+  /* Удаление карточки с погодой */
+
+  function deleteCardWeather(itemId) {
+    setCityList((prevList) => {
+      const updatedList = prevList.filter((item) => item.id !== itemId);
+
+      setCurrentCityIndex((prevIndex) => {
+        if (updatedList.length === 0) {
+          return setStateList(false);
+        }
+        return prevIndex >= updatedList.length
+          ? updatedList.length - 1
+          : prevIndex;
+      });
+
+      return updatedList;
+    });
+    deleteCardWeatherStorage(itemId);
+  }
+
+  /* Удаление города из localStorage */
+
+  function deleteCardWeatherStorage(itemId) {
+    const box = JSON.parse(localStorage.getItem("weather")) || [];
+    const updatedBox = box.filter((item) => item.id !== itemId);
+    if (updatedBox.length === 0) {
+      localStorage.removeItem("weather");
+    } else {
+      localStorage.setItem("weather", JSON.stringify(updatedBox));
+    }
+  }
+
   return (
     <main className="main">
       <section className="header-weather">
@@ -279,7 +272,7 @@ export default function WeatherMe() {
             </svg>
           </button>
           <div className="slider-container">
-            {cityList.length > 0 && (
+            {stateList ? (
               <div className="slider-card" key={cityList[currentCityIndex].id}>
                 <div className="slider-card__location-block">
                   <p className="slider-card__location-text">
@@ -290,7 +283,14 @@ export default function WeatherMe() {
                     src="public/svg/weather/location_.svg"
                     alt="location"
                   />
-                  <button className="slider-card__delete-btn none" />
+                  <button
+                    onClick={() =>
+                      deleteCardWeather(cityList[currentCityIndex].id)
+                    }
+                    className={`slider-card__delete-btn ${
+                      !stateList ? "none" : ""
+                    }`}
+                  />
                 </div>
                 <div className="slider-card__temp-block">
                   <img
@@ -306,6 +306,31 @@ export default function WeatherMe() {
                   <p className="slider-card__data-text">
                     {cityList[currentCityIndex].date}
                   </p>
+                </div>
+              </div>
+            ) : (
+              <div className="slider-card">
+                <div className="slider-card__location-block">
+                  <p className="slider-card__location-text" />
+                  <img
+                    className="slider-card__location-img"
+                    src="public/svg/weather/location_.svg"
+                    alt="location"
+                  />
+                  <button className="slider-card__delete-btn none" />
+                </div>
+                <div className="slider-card__temp-block">
+                  <img
+                    className="slider-card__temp-img"
+                    src="public/svg/weather/temperature_.svg"
+                    alt="temperature"
+                  />
+                  <p className="slider-card__temp-meaning">
+                    &lt;Enter city name&gt;
+                  </p>
+                </div>
+                <div className="slider-card__data-block">
+                  <p className="slider-card__data-text"></p>
                 </div>
               </div>
             )}
