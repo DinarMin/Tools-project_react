@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import "./taskNest.css";
 
 export default function TaskNest() {
   const [tasks, setTasks] = useState([]);
   const [inputValue, setInputValue] = useState("");
+
+  /* Создание обьекта с задачей и добавление в массив tasks */
 
   const addTask = () => {
     if (inputValue.trim() === "") return;
@@ -14,16 +16,22 @@ export default function TaskNest() {
     setInputValue("");
   };
 
+  /* Загрузка задач с localStorage при загрузке страницы */
+
   useEffect(() => {
     const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
     setTasks(savedTasks);
   }, []);
+
+  /* Добавление задачи в localStorage при изменении tasks */
 
   useEffect(() => {
     if (tasks.length > 0) {
       localStorage.setItem("tasks", JSON.stringify(tasks));
     }
   }, [tasks]);
+
+  /* Отработка кнопки Enter */
 
   const addTaskEnter = (e) => {
     if (e.key === "Enter") {
@@ -32,14 +40,34 @@ export default function TaskNest() {
     }
   };
 
+  /* Отслеживание value на input */
+
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
 
+  /* Удаление задачи */
+
   const deleteTask = (taskId) => {
     setTasks(tasks.filter((task) => task.id !== taskId));
+    deleteTaskStorage(taskId);
   };
 
+  /* Удаление задачи с localStorage */
+  function deleteTaskStorage(taskId) {
+    const boxtasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    boxtasks.forEach((task, index) => {
+      if (taskId == task.id) {
+        boxtasks.splice(index, 1);
+      }
+    });
+    localStorage.setItem("tasks", JSON.stringify(boxtasks));
+    if (localStorage.getItem("tasks").length === 2) {
+      localStorage.removeItem("tasks");
+    }
+  }
+
+  /* Изменение состояние задачи */
   const changeState = (taskId) => {
     setTasks(
       tasks.map((task) =>
