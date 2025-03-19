@@ -68,7 +68,7 @@ export default function WeatherMe() {
       setInputValue("");
 
       if (id) {
-        deleteCardWeather(id);
+        handleDeleteCardWeather(id);
         deleteCardWeatherStorage(id);
       }
     } catch (err) {
@@ -95,14 +95,14 @@ export default function WeatherMe() {
 
   /* Листает карточку влево */
 
-  function leftArrow() {
+  function handleLeftArrow() {
     setCurrentCityIndex(
       (prevIndex) => (prevIndex - 1 + cityList.length) % cityList.length
     );
   }
   /* Листает карточку вправо */
 
-  function rightArrow() {
+  function handleRightArrow() {
     setCurrentCityIndex((prevIndex) => (prevIndex + 1) % cityList.length);
   }
 
@@ -175,7 +175,7 @@ export default function WeatherMe() {
 
   /* Удаление карточки с погодой */
 
-  function deleteCardWeather(itemId) {
+  function handleDeleteCardWeather(itemId) {
     setCityList((prevList) => {
       const updatedList = prevList.filter((item) => item.id !== itemId);
 
@@ -287,7 +287,7 @@ export default function WeatherMe() {
         <div className="container">
           <button className={`left-arrow + ${!stateBtn ? "hidden" : ""}`}>
             <svg
-              onClick={() => leftArrow()}
+              onClick={() => handleLeftArrow()}
               className="left-arrow-svg"
               width="26.020447"
               height="42.040920"
@@ -324,7 +324,7 @@ export default function WeatherMe() {
                   />
                   <button
                     onClick={() =>
-                      deleteCardWeather(cityList[currentCityIndex].id)
+                      handleDeleteCardWeather(cityList[currentCityIndex].id)
                     }
                     className={`slider-card__delete-btn ${
                       !cityList.length > 0 ? "none" : ""
@@ -376,7 +376,7 @@ export default function WeatherMe() {
           </div>
           <button className={`right-arrow + ${!stateBtn ? "hidden" : ""}`}>
             <svg
-              onClick={() => rightArrow()}
+              onClick={() => handleRightArrow()}
               className="right-arrow-svg"
               width="26.020447"
               height="42.040920"

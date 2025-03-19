@@ -9,7 +9,7 @@ export default function TaskNest() {
 
   /* Создание обьекта с задачей и добавление в массив tasks */
 
-  const addTask = () => {
+  const handleAddTask = () => {
     if (inputValue.trim() === "") return;
     const newTask = { id: Date.now(), text: inputValue, state: false };
     setTasks([...tasks, newTask]);
@@ -36,7 +36,7 @@ export default function TaskNest() {
   const addTaskEnter = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      addTask();
+      handleAddTask();
     }
   };
 
@@ -252,7 +252,7 @@ export default function TaskNest() {
                 className="input-add-task"
                 placeholder="Write a task..."
               />
-              <button onClick={addTask} type="button" className="btn-add-task">
+              <button onClick={handleAddTask} type="button" className="btn-add-task">
                 Add
               </button>
             </form>
