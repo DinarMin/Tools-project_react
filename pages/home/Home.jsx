@@ -1,11 +1,12 @@
 import "./home.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Search from "../../src/components/search/Search";
 
 import { tools } from "../../src/data/tools-list";
 import { socialsList } from "../../src/data/social-list";
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <main className="main">
       <section className="welcome">
@@ -17,13 +18,13 @@ export default function Home() {
             </div>
             <Search />
             <ul className="title-block__social">
-            {socialsList.map((social) => (
-              <li key={social.id}>
-                <a href={social.href} target="_blank">
-                  <img src={social.src} alt={social.name} />
-                </a>
-              </li>
-            ))}
+              {socialsList.map((social) => (
+                <li key={social.id}>
+                  <a href={social.href} target="_blank">
+                    <img src={social.src} alt={social.name} />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           <figure>
@@ -55,9 +56,9 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="tools__cards__description">{tool.description}</p>
-                <Link to={tool.path} className="btn_card">
+                <button onClick={() => navigate(tool.path)} className="btn_card">
                   Open
-                </Link>
+                </button>
               </li>
             ))}
           </ul>
