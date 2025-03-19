@@ -3,6 +3,11 @@ import "./weatherMe.css";
 
 const API_KEY = "a53c098ae82543b4a48124519252402";
 
+/* Задача:
+  Добавить автообновление погоды во время обновление страницы
+  Добавить список добавленных городов (для удобного переключение между городами)
+*/
+
 export default function WeatherMe() {
   const [cityList, setCityList] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -18,6 +23,8 @@ export default function WeatherMe() {
     if (storedData) {
       setCityList(JSON.parse(storedData));
     }
+
+    refreshArrayList("weather");
   }, []);
 
   useEffect(() => {
@@ -49,7 +56,7 @@ export default function WeatherMe() {
 
   /* Запрос информации о погоде */
 
-  async function getWeatherCity(city, apiKey) {
+  async function getWeatherCity(city, apiKey, id) {
     try {
       let response = await fetch(
         `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`
@@ -59,6 +66,11 @@ export default function WeatherMe() {
       const cityTemp = parseInt(weatherInfo.current.temp_c);
       addWeather(cityLocation, cityTemp, getDate());
       setInputValue("");
+
+      if (id) {
+        deleteCardWeather(id);
+        deleteCardWeatherStorage(id);
+      }
     } catch (err) {
       alert(`Ошибка: ${err.message}. Такого города похоже нет!`);
     }
@@ -67,8 +79,9 @@ export default function WeatherMe() {
   /* Добавление в массив */
 
   function addWeather(city, temperature, date) {
+    let random = Math.random();
     const newWeatherInfo = {
-      id: Date.now(),
+      id: Date.now() + random,
       city: city,
       temp: temperature,
       date: date,
@@ -198,6 +211,19 @@ export default function WeatherMe() {
     return array.some((item) => {
       return item.city.toLowerCase() == value.toLowerCase();
     });
+  }
+
+  /* Обновление список на актуальные погоды */
+
+  function refreshArrayList(name) {
+    const boxCity = JSON.parse(localStorage.getItem(`${name}`));
+    if (boxCity) {
+      boxCity.forEach((item, index) => {
+        let city = item.city;
+        let id = item.id;
+        getWeatherCity(city, API_KEY, id);
+      });
+    }
   }
 
   return (
