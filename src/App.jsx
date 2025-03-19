@@ -1,9 +1,5 @@
 import { StrictMode } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import "./reset.css";
 import "./main.css";
@@ -19,18 +15,16 @@ import ScrollToTop from "../utils/scrollToTop";
 
 export default function App() {
   return (
-    <StrictMode>
-      <Router>
-        <ScrollToTop />
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Calculator" element={<Calculator />} />
-          <Route path="/TaskNest" element={<TaskNest />} />
-          <Route path="/WeatherMe" element={<WeatherMe />} />
-        </Routes>
-        <Footer />
-      </Router>
-    </StrictMode>
+    <Router>
+      <ScrollToTop />
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/Calculator" element={<Calculator />} />
+        <Route path="/TaskNest" element={<TaskNest />} />
+        <Route path="/WeatherMe" element={<WeatherMe />} />
+      </Routes>
+      <Footer />
+    </Router>
   );
 }

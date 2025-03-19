@@ -18,12 +18,6 @@ export default function WeatherMe() {
   useEffect(() => {
     setNowDate(new Date());
 
-    const storedData = localStorage.getItem("weather");
-
-    if (storedData) {
-      setCityList(JSON.parse(storedData));
-    }
-
     refreshArrayList("weather");
   }, []);
 
@@ -66,7 +60,6 @@ export default function WeatherMe() {
       const cityTemp = parseInt(weatherInfo.current.temp_c);
       addWeather(cityLocation, cityTemp, getDate());
       setInputValue("");
-
       if (id) {
         handleDeleteCardWeather(id);
         deleteCardWeatherStorage(id);
@@ -218,7 +211,7 @@ export default function WeatherMe() {
   function refreshArrayList(name) {
     const boxCity = JSON.parse(localStorage.getItem(`${name}`));
     if (boxCity) {
-      boxCity.forEach((item, index) => {
+      boxCity.forEach((item) => {
         let city = item.city;
         let id = item.id;
         getWeatherCity(city, API_KEY, id);
