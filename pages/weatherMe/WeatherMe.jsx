@@ -102,57 +102,27 @@ export default function WeatherMe() {
   /* Вовзращает название месяца место числа */
 
   function getMonth(nowDate) {
-    let month = nowDate.getMonth();
-
-    switch (month) {
-      case 0:
-        return "Jun";
-      case 1:
-        return "Feb";
-      case 2:
-        return "Mar";
-      case 3:
-        return "Apr";
-      case 4:
-        return "May";
-      case 5:
-        return "Jun";
-      case 6:
-        return "Jul";
-      case 7:
-        return "Aug";
-      case 8:
-        return "Sep";
-      case 9:
-        return "Oct";
-      case 10:
-        return "Nov";
-      case 11:
-        return "Dec";
-    }
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    return months[nowDate.getMonth()];
   }
-
   /* Возвращает назание дня недели место числа */
 
   function getWeekDay(nowDate) {
-    let weekDay = nowDate.getDay();
-
-    switch (weekDay) {
-      case 0:
-        return "Sun";
-      case 1:
-        return "Mon";
-      case 2:
-        return "Tues";
-      case 3:
-        return "Wed";
-      case 4:
-        return "Thurs";
-      case 5:
-        return "Fri";
-      case 6:
-        return "Sat";
-    }
+    const days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+    return days[nowDate.getDay()];
   }
 
   /* Возврат отформатированной даты */
