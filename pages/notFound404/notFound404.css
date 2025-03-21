@@ -1,0 +1,25 @@
+.block404 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-nav__link_404 {
+  margin-top: 10px;
+  padding: 3px 7px;
+
+  font-size: 25px;
+  color: greenyellow;
+  border: 1px solid bisque;
+  border-radius: 10px;
+}
+
+.title404 {
+  margin-top: 300px;
+  font-size: 100px;
+  color: bisque;
+}
+
+.text404 {
+  font-size: 30px;
+}

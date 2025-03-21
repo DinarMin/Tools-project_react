@@ -10,6 +10,7 @@ import TaskNest from "../pages/taskNest/TaskNest";
 import WeatherMe from "../pages/weatherMe/WeatherMe";
 
 import ScrollToTop from "../utils/scrollToTop";
+import { NotFound404 } from "../pages/notFound404/notFound404";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="TaskNest" element={<TaskNest />} />
           <Route path="WeatherMe" element={<WeatherMe />} />
         </Route>
+        <Route path="*" element={<NotFound404 />} />
       </Routes>
     </Router>
   );
