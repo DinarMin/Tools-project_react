@@ -50,6 +50,7 @@
 
 .sort-list__item {
   display: flex;
+  cursor: pointer;
 }
 
 .sort-list__item:nth-child(2) {

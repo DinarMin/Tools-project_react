@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import "./taskNest.css";
 
 export default function TaskNest() {
   const [tasks, setTasks] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortType = searchParams.get("sort");
 
   /* Создание обьекта с задачей и добавление в массив tasks */
 
@@ -76,6 +78,24 @@ export default function TaskNest() {
     );
   };
 
+  /* Сортировка задач */
+
+  const sortedTasks = [...tasks].sort((a, b) => {
+    if (sortType === "done-first") return b.state - a.state;
+    if (sortType === "not-done-first") return a.state - b.state;
+    return 0;
+  });
+
+  const toggleSort = () => {
+    if (!sortType) {
+      setSearchParams({ sort: "done-first" });
+    } else if (sortType === "done-first") {
+      setSearchParams({ sort: "not-done-first" });
+    } else {
+      setSearchParams({});
+    }
+  };
+
   return (
     <main className="main">
       <div className="container">
@@ -100,11 +120,14 @@ export default function TaskNest() {
               </li>
               <li className="sort-list__item">
                 <img
+                  onClick={() => toggleSort()}
                   src="public/svg/tasknest/sortsvg.svg"
                   alt="sort"
                   className="sort-list__img"
                 />
-                <button className="btn-top-sort">Sort</button>
+                <button onClick={() => toggleSort()} className="btn-top-sort">
+                  Sort
+                </button>
               </li>
             </ul>
           </div>
@@ -252,12 +275,16 @@ export default function TaskNest() {
                 className="input-add-task"
                 placeholder="Write a task..."
               />
-              <button onClick={handleAddTask} type="button" className="btn-add-task">
+              <button
+                onClick={handleAddTask}
+                type="button"
+                className="btn-add-task"
+              >
                 Add
               </button>
             </form>
             <ul className="tasks-block">
-              {tasks.map((task) => (
+              {sortedTasks.map((task) => (
                 <li
                   className={`task-item-block + ${
                     task.state ? "task-item-block__text_checked" : ""
