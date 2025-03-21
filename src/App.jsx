@@ -3,8 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./reset.css";
 import "./main.css";
 
-import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
+import { Layout } from "./layout";
 import Home from "../pages/home/Home";
 import Calculator from "../pages/calculator/Calculator";
 import TaskNest from "../pages/taskNest/TaskNest";
@@ -16,14 +15,14 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
-      <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Calculator" element={<Calculator />} />
-        <Route path="/TaskNest" element={<TaskNest />} />
-        <Route path="/WeatherMe" element={<WeatherMe />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="Calculator" element={<Calculator />} />
+          <Route path="TaskNest" element={<TaskNest />} />
+          <Route path="WeatherMe" element={<WeatherMe />} />
+        </Route>
       </Routes>
-      <Footer />
     </Router>
   );
 }
