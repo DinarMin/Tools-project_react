@@ -10,7 +10,7 @@ import TaskNest from "../pages/taskNest/TaskNest";
 import WeatherMe from "../pages/weatherMe/WeatherMe";
 
 import ScrollToTop from "../utils/scrollToTop";
-import { NotFound404 } from "../pages/notFound404/notFound404";
+import { NotFound404 } from "../pages/notFound404/page.jsx";
 
 export default function App() {
   return (
