@@ -1,8 +1,7 @@
 import "./header.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export const Header = () => {
-  const navigate = useNavigate();
+export const Header = ({ onClickModal }) => {
   return (
     <>
       <header className="header">
@@ -28,8 +27,10 @@ export const Header = () => {
               </ul>
             </nav>
             <nav className="auth-nav">
-              <button onClick={() => navigate("/Login")} className="btn_login">Login</button>
-              <button onClick={() => navigate("/SignUp")} className="btn btn_sign-up">Sign Up</button>
+              <button className="btn_login">Login</button>
+              <button onClick={onClickModal} className="btn btn_sign-up">
+                Sign Up
+              </button>
             </nav>
           </div>
         </div>
@@ -37,5 +38,3 @@ export const Header = () => {
     </>
   );
 };
-
-

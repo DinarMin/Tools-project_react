@@ -25,6 +25,6 @@ export default function App() {
         </Route>
         <Route path="*" element={<NotFound404 />} />
       </Routes>
-    </Router> 
+    </Router>
   );
 }

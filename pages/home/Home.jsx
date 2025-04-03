@@ -4,17 +4,8 @@ import Search from "../../src/components/search/Search";
 
 import { tools } from "../../src/data/tools-list";
 import { socialsList } from "../../src/data/social-list";
-import { useEffect } from "react";
 
 export default function Home() {
-  
-  useEffect(() => {
-    fetch("http://localhost:3000/api/test")
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.error(err));
-  }, []);
-
   const navigate = useNavigate();
   return (
     <main className="main">
