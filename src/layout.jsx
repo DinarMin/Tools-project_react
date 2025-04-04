@@ -3,88 +3,26 @@ import { useState } from "react";
 
 import { Header } from "./components/header/Header";
 import { Footer } from "./components/footer/Footer";
-import Modal from "./components/modal/Modal";
+import SignUp from "./components/modal/SignUp/SignUp";
+import Login from "./components/modal/Login/Login";
 
 export const Layout = () => {
-  const [modalActive, setModalActive] = useState(false);
+  const [signUpModalActive, setSignUpModalActive] = useState(false);
+  const [authModalActive, setAuthModalActive] = useState(true);
 
-  const toggleModal = () => {
-    setModalActive(!modalActive);
+  const toggleSignUpModal = () => {
+    setSignUpModalActive(!signUpModalActive);
   };
 
-  /* Функциональность формы регистрации  */
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await fetch("http://localhost:3000", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      console.log("Отправка на сервер прошла успешна");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const toggleAuthModal = () => {
+    setAuthModalActive(!authModalActive);
+  }
 
   return (
     <>
-      <Header onClickModal={toggleModal} />
-      <Modal active={modalActive} onClickModal={toggleModal}>
-        <form onSubmit={handleSubmit}>
-          <div className="input-container">
-            <label htmlFor="name">Name:</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            <span className="error"></span>
-          </div>
-          <div className="input-container">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            <span className="error"></span>
-          </div>
-          <div className="input-container">
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <span className="error"></span>
-          </div>
-          <button type="submit" className="btn btn_sign-up">
-            Register
-          </button>
-        </form>
-      </Modal>
+      <Header onClickSignUpModal={toggleSignUpModal} onClickAuthModal={toggleAuthModal} />
+      <SignUp onClickModal={toggleSignUpModal} active={signUpModalActive}/>
+      <Login onClickModal={toggleAuthModal} active={authModalActive} />
       <Outlet />
       <Footer />
     </>

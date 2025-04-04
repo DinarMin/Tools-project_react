@@ -20,18 +20,28 @@
 }
 
 .modal__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   padding: 20px;
   border-radius: 12px;
   background-color: rgb(235, 235, 235);
-  width: 50vw;
+  min-width: 500px;
+  min-height: 350px;
   color: #000;
 }
 
+.modal form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
 .input-container {
   margin-top: 5px;
 }
 
-input {
+.input-container input {
   margin-left: 5px;
   padding: 3px;
 
@@ -40,7 +50,7 @@ input {
   border-radius: 3px;
 }
 
-form button {
-  margin-top: 10px;
+.modal form button {
+  margin-top: 15px;
   color: white;
 }

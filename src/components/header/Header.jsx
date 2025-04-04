@@ -1,7 +1,7 @@
 import "./header.css";
 import { Link } from "react-router-dom";
 
-export const Header = ({ onClickModal }) => {
+export const Header = ({ onClickSignUpModal, onClickAuthModal }) => {
   return (
     <>
       <header className="header">
@@ -27,8 +27,8 @@ export const Header = ({ onClickModal }) => {
               </ul>
             </nav>
             <nav className="auth-nav">
-              <button className="btn_login">Login</button>
-              <button onClick={onClickModal} className="btn btn_sign-up">
+              <button onClick={onClickAuthModal} className="btn_login">Login</button>
+              <button onClick={onClickSignUpModal} className="btn btn_sign-up">
                 Sign Up
               </button>
             </nav>
