@@ -15,9 +15,34 @@ const Login = ({ onClickModal, active }) => {
     }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      console.log("Отправка на сервер прошла успешна");
+      setFormData({
+        email: "",
+        password: "",
+      });
+      const data = await response.json(); // Зачем: Получаем ответ.
+      if (data.token) { // Зачем: Проверяем, есть ли токен.
+        localStorage.setItem('token', data.token); // Зачем: Сохраняем токен.
+        console.log('Login successful:', data.token);
+      } else {
+        console.log('Login failed:', data.error);
+      }
+    } catch (err) {
+      console.log("Ошибка отправки на сервер " + err);
+    }
+  };
+
   return (
     <Modal onClickModal={onClickModal} active={active}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="input-container">
           <label htmlFor="email">Email:</label>
           <input
