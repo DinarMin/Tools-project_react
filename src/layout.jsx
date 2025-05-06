@@ -8,7 +8,7 @@ import Login from "./components/modal/Login/Login";
 
 export const Layout = () => {
   const [signUpModalActive, setSignUpModalActive] = useState(false);
-  const [authModalActive, setAuthModalActive] = useState(true);
+  const [authModalActive, setAuthModalActive] = useState(false);
 
   const toggleSignUpModal = () => {
     setSignUpModalActive(!signUpModalActive);

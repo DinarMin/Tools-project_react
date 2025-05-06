@@ -18,9 +18,7 @@ app.listen(3000, () => console.log("Server on port 3000"));
 
 async function startDB() {
   try {
-    const url =
-      "mongodb+srv://dinar2202:SK58fdpWsGOWW6lN@cluster0.ujvlwdp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-    await mongoose.connect(url);
+    await mongoose.connect(process.env.DBURL);
     console.log("Успешно подключена к базам данных");
   } catch (e) {
     console.log(e + "Подключение прервано");

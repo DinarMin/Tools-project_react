@@ -28,9 +28,9 @@ const Login = ({ onClickModal, active }) => {
         email: "",
         password: "",
       });
-      const data = await response.json(); // Зачем: Получаем ответ.
-      if (data.token) { // Зачем: Проверяем, есть ли токен.
-        localStorage.setItem('token', data.token); // Зачем: Сохраняем токен.
+      const data = await response.json(); 
+      if (data.token) { 
+        localStorage.setItem('token', data.token); 
         console.log('Login successful:', data.token);
       } else {
         console.log('Login failed:', data.error);
