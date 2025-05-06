@@ -40,13 +40,13 @@
   "main": "eslint.config.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DuHaPuK/Tools-project_react.git"
+    "url": "git+https://github.com/DinarMin/Tools-project_react.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DuHaPuK/Tools-project_react/issues"
+    "url": "https://github.com/DinarMin/Tools-project_react/issues"
   },
-  "homepage": "https://github.com/DuHaPuK/Tools-project_react#readme"
+  "homepage": "https://github.com/DinarMin/Tools-project_react#readme"
 }
