@@ -37,12 +37,12 @@ app.post("/", async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = new User({ name, email, password: hashedPassword });
       await user.save();
-      res.json({ message: "User registered" });
+      res.status(201).json({ message: "User registered" });
     } else {
       // При авторизации принимает данные и проверяет и назначает token
       const user = await User.findOne({ email });
       if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(401).json({ error: "Неверный пароль или логин!" });
+        return res.status(401).json({ errormessage: "Неверный пароль или логин!" });
       }
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: "1h",
@@ -51,7 +51,7 @@ app.post("/", async (req, res) => {
     }
     console.log("");
   } catch (error) {
-    res.json({ error });
-    console.log("Произошла ошибка ->" + error);
+    res.status(400).json({ message: error.message  });
+    console.log(error.message);
   }
 });

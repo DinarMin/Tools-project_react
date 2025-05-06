@@ -14,7 +14,7 @@ import { NotFound404 } from "../pages/notFound404/page.jsx";
 
 export default function App() {
   return (
-    <Router>
+    <Router basename="/Tools-project_react">
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>

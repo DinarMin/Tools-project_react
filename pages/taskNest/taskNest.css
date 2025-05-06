@@ -322,7 +322,7 @@ input:focus::-webkit-input-placeholder {
 
 .btn-delete-task {
   display: none;
-  background-image: url(../../../../public/svg/tasknest/wastebasket.svg);
+  background-image: url(../../public/svg/tasknest/wastebasket.svg);
   background-size: cover;
   width: 24px;
   height: 24px;
