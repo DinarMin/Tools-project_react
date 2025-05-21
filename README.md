@@ -27,11 +27,24 @@
 - Поиск погоды по городу
 - Хранение данных в `localStorage`
 
+
+<details>
+   <summary>📷 Скриншоты</summary>
+  
+  ![Home](/public/screenshots/Screenshot_Home.png)
+  ![Tools-list](/public/screenshots/Screenshot_Tools_list.png)
+  ![TaskNest](/public/screenshots/Screenshot_Todo.png)
+  ![WeatherMe](/public/screenshots/Screenshot_Weather.png)
+
+</details>
+
 ## Deployment
 
 
 ```bash
   git clone https://github.com/DinarMin/Tools-project_react.git
+
+  npm install
 
   npm audit fix
 
