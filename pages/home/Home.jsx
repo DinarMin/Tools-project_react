@@ -13,7 +13,7 @@ export default function Home() {
         <div className="container">
           <div className="title-block">
             <div className="title-block__text">
-              <div className="demo">[ Development is underway ]</div>
+              {/* <div className="demo">[ Development is underway ]</div> */}
               <h1>Useful tools for every day.</h1>
             </div>
             <Search />
