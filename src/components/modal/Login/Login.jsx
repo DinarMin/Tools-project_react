@@ -28,12 +28,12 @@ const Login = ({ onClickModal, active }) => {
         email: "",
         password: "",
       });
-      const data = await response.json(); 
-      if (data.token) { 
-        localStorage.setItem('token', data.token); 
-        console.log('Login successful:', data.token);
+      const data = await response.json();
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        console.log("Login successful:", data.token);
       } else {
-        console.log('Login failed:', data.error);
+        console.log("Login failed:", data.error);
       }
     } catch (err) {
       console.log("Ошибка отправки на сервер " + err);
@@ -42,31 +42,27 @@ const Login = ({ onClickModal, active }) => {
 
   return (
     <Modal onClickModal={onClickModal} active={active}>
-      <form onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
+        <p className="form-title">Sign in to your account</p>
         <div className="input-container">
-          <label htmlFor="email">Email:</label>
           <input
             type="email"
-            id="email"
-            name="email"
-            value={formData.email}
+            defaultValue={formData.email}
             onChange={handleChange}
+            placeholder="Enter email "
           />
-          <span className="error"></span>
+          <span />
         </div>
         <div className="input-container">
-          <label htmlFor="password">Password:</label>
           <input
             type="password"
-            id="password"
-            name="password"
-            value={formData.password}
+            defaultValue={formData.password}
             onChange={handleChange}
+            placeholder="Enter password"
           />
-          <span className="error"></span>
         </div>
-        <button type="submit" className="btn btn_sign-up">
-          Login
+        <button type="submit" className="submit">
+          Sign in
         </button>
       </form>
     </Modal>
